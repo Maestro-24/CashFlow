@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block title %}Управление справочниками - Финансовый учет{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Управление справочниками</h1>
+
+<div class="row">
+    <!-- Статусы -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h5 class="mb-0">Статусы</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        {{ status_form.name }}
+                        <button type="submit" name="add_status" class="btn btn-primary">Добавить</button>
+                    </div>
+                </form>
+                <div class="list-group">
+                    {% for status in statuses %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ status.name }}
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'finance:edit_status' status.pk %}" class="btn btn-outline-primary">Изменить</a>
+                            <a href="{% url 'finance:delete_status' status.pk %}" class="btn btn-outline-danger" onclick="return confirm('Удалить статус?')">Удалить</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Типы операций -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Типы операций</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        {{ operation_type_form.name }}
+                        <button type="submit" name="add_operation_type" class="btn btn-primary">Добавить</button>
+                    </div>
+                </form>
+                <div class="list-group">
+                    {% for type in operation_types %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        {{ type.name }}
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'finance:edit_operation_type' type.pk %}" class="btn btn-outline-primary">Изменить</a>
+                            <a href="{% url 'finance:delete_operation_type' type.pk %}" class="btn btn-outline-danger" onclick="return confirm('Удалить тип операции?')">Удалить</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Категории -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Категории</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    <div class="row g-2">
+                        <div class="col-6">
+                            {{ category_form.name }}
+                        </div>
+                        <div class="col-4">
+                            {{ category_form.operation_type }}
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" name="add_category" class="btn btn-primary w-110">Добавить</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="list-group">
+                    {% for category in categories %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                            {{ category.name }}
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'finance:edit_category' category.pk %}" class="btn btn-outline-primary">Изменить</a>
+                            <a href="{% url 'finance:delete_category' category.pk %}" class="btn btn-outline-danger" onclick="return confirm('Удалить категорию?')">Удалить</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Подкатегории -->
+    <div class="col-md-6 mb-4">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Подкатегории</h5>
+            </div>
+            <div class="card-body">
+                <form method="post" class="mb-3">
+                    {% csrf_token %}
+                    <div class="row g-2">
+                        <div class="col-5">
+                            {{ subcategory_form.name }}
+                        </div>
+                        <div class="col-5">
+                            {{ subcategory_form.category }}
+                        </div>
+                        <div class="col-2">
+                            <button type="submit" name="add_subcategory" class="btn btn-primary w-110">Добавить</button>
+                        </div>
+                    </div>
+                </form>
+                <div class="list-group">
+                    {% for subcategory in subcategories %}
+                    <div class="list-group-item d-flex justify-content-between align-items-center">
+                        <div>
+                            <strong>{{ subcategory.name }}</strong>
+                            <br>
+                            <small class="text-muted">Категория: {{ subcategory.category.name }} ({{ subcategory.category.operation_type.name }})</small>
+                        </div>
+                        <div class="btn-group btn-group-sm">
+                            <a href="{% url 'finance:edit_subcategory' subcategory.pk %}" class="btn btn-outline-primary">Изменить</a>
+                            <a href="{% url 'finance:delete_subcategory' subcategory.pk %}" class="btn btn-outline-danger" onclick="return confirm('Удалить подкатегорию?')">Удалить</a>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

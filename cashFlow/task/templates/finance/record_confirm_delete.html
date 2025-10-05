@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Удалить запись - Финансовый учет{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Удаление записи</h4>
+            </div>
+            <div class="card-body">
+                <p>Вы уверены, что хотите удалить эту финансовую запись?</p>
+                
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h6>Детали записи:</h6>
+                        <p><strong>Дата:</strong> {{ object.record_date }}</p>
+                        <p><strong>Тип операции:</strong> {{ object.operation_type.name }}</p>
+                        <p><strong>Категория:</strong> {{ object.category.name }}</p>
+                        <p><strong>Сумма:</strong> {{ object.amount }}</p>
+                        {% if object.comment %}
+                        <p><strong>Комментарий:</strong> {{ object.comment }}</p>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                        <a href="{% url 'finance:record_list' %}" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
