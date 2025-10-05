@@ -34,33 +34,38 @@ pip (менеджер пакетов Python)
     **Windows:**
     
     python -m venv venv
+    
     venv\Scripts\activate
     
     **macOS/Linux:**
 
     python3 -m venv venv
+    
     source venv/bin/activate
 
-3.  **Установите зависимости**
+4.  **Установите зависимости**
 
     cd cashFlow
+    
     pip install -r requirements.txt
 
-4.  **Настройте базу данных**
+6.  **Настройте базу данных**
 
     python manage.py makemigrations
+    
     python manage.py migrate
 
-5.  **Создайте суперпользователя (опционально)**
+8.  **Создайте суперпользователя (опционально)**
 
     python manage.py createsuperuser
+    
     Следуйте инструкциям для создания учетной записи администратора.
 
-6.  **Запустите сервер разработки**
+10.  **Запустите сервер разработки**
 
     python manage.py runserver
 
-7.  **Откройте приложение в браузере**
+11.  **Откройте приложение в браузере**
 
     http://127.0.0.1:8000/
 
