@@ -34,9 +34,10 @@ class OperationTypeForm(forms.ModelForm):
 class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
-        fields = ['name']
+        fields = ['name', 'operation_type']
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'operation_type': forms.Select(attrs={'class': 'form-control'})
         }
 
 class SubcategoryForm(forms.ModelForm):
